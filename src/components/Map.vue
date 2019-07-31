@@ -58,5 +58,9 @@
         height: 400px;
     }
 
+    .leaflet-pane {
+        transition: all 300ms ease;
+    }
+
 </style>
 
