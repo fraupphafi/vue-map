@@ -1,45 +1,62 @@
 <template>
     <div id="map">
-        <l-map :zoom="zoom" :center="center" @click="log()" @mousedown="mouseDown()">
-            <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
-            <l-marker :lat-lng="marker"></l-marker>
+        <l-map :zoom="zoom" :center="center" @click="log()" >
+            <l-tile-layer
+                :url="url" 
+                :attribution="attribution"/>
+            <l-marker 
+                v-for="(outlet, index) in outlets"
+                :lat-lng="outlet.coords" 
+                :key="index" 
+                :icon="icon"
+                @click="move(outlet.coords)"/>
         </l-map>
     </div>
 </template>
 
 <script>
-    import {LMap, LTileLayer, LMarker } from 'vue2-leaflet';
-    import { Icon } from 'leaflet';
-    import 'leaflet/dist/leaflet.css';
-
-    delete Icon.Default.prototype._getIconUrl;
+    import { LMap, LTileLayer, LMarker, LIcon } from "vue2-leaflet";
+    import { latLng, icon  } from "leaflet";
 
     export default {
         name: 'Map',
-        components: { LMap, LTileLayer, LMarker },
+        props: ['outlets', 'center'],
+        components: { LMap, LTileLayer, LMarker, LIcon },
         data() {
             return {
-                zoom:13,
-                center: L.latLng(47.413220, -1.219482),
-                url:'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
-                attribution:'&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-                marker: L.latLng(47.413220, -1.219482),
-            }
+                zoom: 15,
+                url: "http://{s}.tile.osm.org/{z}/{x}/{y}.png",
+                attribution:
+                    '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+                    icon: icon({
+                        iconUrl: "cheese.png",
+                        iconSize: [32, 32],
+                        iconAnchor: [16, 16]
+                    }),
+                markerList: [
+                    [50.095653, 118.031298],
+                    [50.097982, 118.031225],
+                    [50.097706, 118.025636],
+                    [50.098187, 118.031780]
+                ]
+            };
         },
         methods: {
+            move(coord) {
+                this.$emit('changecenter', coord);
+            },
             log() {
                 console.log('click');
-            },
-            mouseDown() {
-                console.log('key-down');
             }
         }
     }
 </script>
 
 <style>
+    @import '~leaflet/dist/leaflet.css';
     #map {
         height: 400px;
     }
+
 </style>
 
