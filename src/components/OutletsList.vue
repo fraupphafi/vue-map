@@ -18,7 +18,7 @@ export default {
     props: ['outlets', 'center'],
     methods: {
         move(coord) {
-            this.$emit('changecenter', coord);
+            this.$store.commit('moveCenter', coords);
         }
     }
 }

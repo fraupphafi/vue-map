@@ -37,7 +37,7 @@
         },
         methods: {
             move(coord) {
-                this.$emit('changecenter', coord);
+                this.$store.commit('moveCenter', coords);
             },
             log() {
                 console.log('click');
@@ -55,6 +55,5 @@
     .leaflet-pane {
         transition: all 300ms ease;
     }
-
 </style>
 
