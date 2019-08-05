@@ -9,7 +9,7 @@
                 :lat-lng="outlet.coords" 
                 :key="index" 
                 :icon="icon"
-                @click="move(outlet.coords)"/>
+                @click="centerUpdate(outlet.coords)"/>
         </l-map>
     </div>
 </template>
@@ -17,6 +17,7 @@
 <script>
     import { LMap, LTileLayer, LMarker, LIcon } from "vue2-leaflet";
     import { latLng, icon  } from "leaflet";
+    import { mapMutations } from 'vuex';
 
     export default {
         name: 'Map',
@@ -41,7 +42,10 @@
             },
             log() {
                 console.log('click');
-            }
+            },
+            ...mapMutations([
+                'centerUpdate'
+            ])
         }
     }
 </script>

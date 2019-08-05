@@ -3,23 +3,35 @@
         <li 
             v-for='(outlet, index) in outlets' 
             :key='outlet.id' 
-            @click="move(outlet.coords)"
             class="outlets-list__item">
+            <div @click="centerUpdate(outlet.coords)">
                 <span class="count">{{index + 1}}</span>
                 <p class="name">{{outlet.name}}</p>
                 <p class="address">{{outlet.address}}</p>
+            </div>
+            <router-link :to="{ name: 'outlet-description', params: { id: outlet.id } }">
+                <button class="button">Перейти в точку {{index + 1}}</button>
+            </router-link>
         </li>
     </ol>
 </template>
 
 <script>
+import router from '../router.js';
+import { mapMutations } from 'vuex';
 export default {
     name: 'OutletsList',
     props: ['outlets', 'center'],
     methods: {
-        move(coord) {
-            this.$store.commit('moveCenter', coords);
-        }
+        move(coords) {
+            this.$store.commit('centerUpdate', coords);
+        },
+        log(coords) {
+            console.log(`координаты точки: ${coords}`);
+        },
+        ...mapMutations([
+            'centerUpdate'
+        ])
     }
 }
 </script>
@@ -38,6 +50,10 @@ export default {
     text-align: left;
     padding-left: 64px;
     cursor: pointer;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
     &:last-child {
         margin-bottom: 0;
@@ -78,6 +94,26 @@ export default {
             background-color: invert(#204969);
             color: invert(#fff);
         }
+    }
+}
+
+.button {
+    font-family: 'Ubuntu', sans-serif;
+    background-color: #204969;
+    border: 2px solid #204969;
+    color: #fff;
+    padding: 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 300ms ease-out;
+
+    &:active,
+    &:hover,
+    &:focus {
+        background-color: transparent;
+        color: #204969;
+        outline: none;
+        box-shadow: none;
     }
 }
 </style>

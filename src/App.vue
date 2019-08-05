@@ -1,32 +1,16 @@
 <template>
   <div id="app" class="app">
-    <Header transition="slide" />
-    <Map :outlets="outlets" :center="center" @changecenter="move"/>
-    <OutletsList :outlets="outlets" :center="center" @changecenter="move"/>
+     <router-view></router-view>
   </div>
 </template>
 
 <script>
-import Header from './components/Header.vue';
-import Map from './components/Map.vue';
-import OutletsList from './components/OutletsList.vue';
-import { mapState } from 'vuex';
-import { mapGetters } from 'vuex';
+import router from './router.js';
 
 export default {
   name: 'app',
   components: {
-    Header,
-    Map,
-    OutletsList
-  },
-  computed: mapGetters([
-    'outlets', 'center'
-  ]), 
-  methods: {
-    move(coord) {
-      this.center = coord;
-    }
+    router
   }
 }
 </script>

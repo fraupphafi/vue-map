@@ -46,18 +46,24 @@ export default new Vuex.Store({
     },
     getters: {
         outlets: state => {
-            return state.outlets.map(function (outlet, index) {
+            return state.outlets.map((outlet, index) => {
                 outlet.coords = [coordConverter(outlet.latitude), coordConverter(outlet.longitude)];
                 return outlet;
             });
         },
         center: state => {
             return getAverageCoords(state.outlets);
+        },
+        getOutletById: (state) => (id) => {
+            return state.outlets.filter((outlet, index) => {
+                return +outlet.id === +id
+            })
         }
     },
     mutations: {
-        moveCenter(state, coords) {
+        centerUpdate(state, coords) {
             state.center = coords;
+            console.log(state.center);
         }
     }
 });
