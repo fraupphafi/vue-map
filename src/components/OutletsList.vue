@@ -23,9 +23,6 @@ export default {
     name: 'OutletsList',
     props: ['outlets', 'center'],
     methods: {
-        move(coords) {
-            this.$store.commit('centerUpdate', coords);
-        },
         log(coords) {
             console.log(`координаты точки: ${coords}`);
         },

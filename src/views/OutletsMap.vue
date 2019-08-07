@@ -10,6 +10,7 @@
 import Header from '../components/Header.vue';
 import Map from '../components/Map.vue';
 import OutletsList from '../components/OutletsList.vue';
+
 import { mapState } from 'vuex';
 import { mapGetters } from 'vuex';
 

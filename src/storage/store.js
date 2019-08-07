@@ -63,7 +63,6 @@ export default new Vuex.Store({
     mutations: {
         centerUpdate(state, coords) {
             state.center = coords;
-            console.log(state.center);
         }
     }
 });
